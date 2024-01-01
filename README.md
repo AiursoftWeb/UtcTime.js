@@ -32,6 +32,71 @@ npm install
 npm run build
 ```
 
+## How to use
+
+Create an element.
+
+```html
+<p></p>
+```
+
+And change it like this.
+
+```html
+<p data-utc-time="9/12/2018 10:12:24 AM"><!-- In your tag the time shall be an UTC time --></p>
+```
+
+Add init jquery-utc-time
+
+```html
+<script>
+  new UtcTime({})
+</script>
+```
+
+And open it now! The time will be converted to local time.
+
+## API
+
+```javascript
+// Init with loop
+new UtcTime({
+  // We will try to select elements using the attr value. Default value is 'data-utc-time'.
+  attr: 'data-utc-time',
+
+  // Localization options. Default is ' days ago'
+  daysAgo: '天前',
+
+  // Localization options. Default is ' hours ago'
+  hoursAgo: '小时前',
+
+  // Localization options. Default is ' mintes ago'
+  minutesAgo: '分钟前',
+
+  // Localization options. Default is ' seconds ago'
+  secondsAgo: '秒前',
+
+  // Always display time and date not `some time` ago.
+  disableAgo: false,
+
+  // After the content is replaced.
+  onSet: function (element) {},
+
+  // Disable auto update the value by seconds.
+  disableAutoUpdate: false,
+})
+```
+
+For example, to init bootstrap tooltip:
+
+```javascript
+new UtcTime({
+  onSet: function (element) {
+    $(element).tooltip()
+  },
+})
+```
+
 ## How to contribute
 
 There are many ways to contribute to the project: logging bugs, submitting pull requests, reporting issues, and creating suggestions.

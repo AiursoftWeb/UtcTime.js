@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "removeComments": false,
+    "sourceMap": true,
+    "strict": true,
+    "target": "ESNext",
+    "outDir": "./dist/esm",
+    "module": "esnext"
+  },
+  "include": ["src/**/*"]
+}

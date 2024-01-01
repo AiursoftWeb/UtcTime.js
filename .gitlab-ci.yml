@@ -1,0 +1,36 @@
+stages:
+  - check
+  - publish
+
+before_script:
+  - 'cat /etc/lsb-release && uname -a && pwd && ls -ashl'
+  - 'echo "Hostname: $(hostname)"'
+  - 'echo "Uptime: $(uptime -p)"'
+  - 'echo "Memory: $(free -h | awk "/^Mem:/{print \$2}")"'
+  - 'echo "CPU Cores: $(nproc)"'
+  - 'echo "Available Disk Space: $(df -h --output=avail / | tail -1)"'
+  - 'echo "IP Address: $(hostname -I)"'
+  - 'npm --version'
+  - 'node --version'
+
+build_locally:
+  stage: check
+  script:
+    - npm clean-install
+    - npm run lint
+    - npm run build
+
+deploy_to_npm:
+  needs:
+    - build_locally
+  stage: publish
+  environment: production
+  script:
+    - npm clean-install
+    - npm run clean
+    - npm run format
+    - npm run build
+    - echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> .npmrc
+    - npm publish --access public || true
+  only:
+    - master

@@ -1,0 +1,33 @@
+{
+  "name": "@aiursoft/utctime.js",
+  "version": "1.0.0",
+  "description": "Auto utc time",
+  "main": "dist/cjs/utctime.js",
+  "module": "dist/esm/utctime.js",
+  "types": "dist/types/utctime.d.ts",
+  "scripts": {
+    "clean": "rm -rf ./dist",
+    "build-js": "tsc -b ./tsconfig.json ./tsconfig.types.json",
+    "build": "npm run build-js",
+    "format": "prettier --write .",
+    "lint": "eslint src/ --ext .ts && prettier --check ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.aiursoft.cn/aiursoft/utctime.js"
+  },
+  "dependencies": {
+    "bootstrap": "^4.6.2"
+  },
+  "devDependencies": {
+    "esbuild": "^0.19.11",
+    "@typescript-eslint/eslint-plugin": "^6.16.0",
+    "@typescript-eslint/parser": "^6.16.0",
+    "eslint": "^8.56.0",
+    "node-sass": "^9.0.0",
+    "prettier": "^3.1.1",
+    "typescript": "^5.3.3"
+  },
+  "author": "Anduin Xue <anduin@aiursoft.com>",
+  "license": "MIT"
+}

@@ -11,7 +11,6 @@ interface UtcTimeSettings {
 }
 
 class UtcTime {
-
   defaultSettings: UtcTimeSettings = {
     attr: 'data-utc-time',
     daysAgo: ' days ago',

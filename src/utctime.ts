@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 interface UtcTimeSettings {
+  bootstrapVersion: number
   attr: string
   daysAgo: string
   hoursAgo: string
@@ -12,6 +13,7 @@ interface UtcTimeSettings {
 
 class UtcTime {
   defaultSettings: UtcTimeSettings = {
+    bootstrapVersion: 4,
     attr: 'data-utc-time',
     daysAgo: ' days ago',
     hoursAgo: ' hours ago',
@@ -93,9 +95,18 @@ class UtcTime {
           text = date.toLocaleDateString()
         }
         timeField.innerHTML = text
-        timeField.setAttribute('data-toggle', 'tooltip')
-        timeField.setAttribute('data-trigger', 'hover')
-        timeField.setAttribute('data-title', date.toLocaleString())
+        
+        timeField.setAttribute('title', date.toLocaleString())
+        if (settings.bootstrapVersion === 4) {
+          timeField.setAttribute('data-toggle', 'tooltip')
+          timeField.setAttribute('data-trigger', 'hover')
+          timeField.setAttribute('data-title', date.toLocaleString())
+        }
+        if (settings.bootstrapVersion === 5) {
+          timeField.setAttribute('data-bs-toggle', 'tooltip')
+          timeField.setAttribute('data-bs-trigger', 'hover')
+          timeField.setAttribute('data-bs-title', date.toLocaleString())
+        }
         settings.onSet(timeField)
       })
   }

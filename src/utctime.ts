@@ -95,7 +95,7 @@ class UtcTime {
           text = date.toLocaleDateString()
         }
         timeField.innerHTML = text
-        
+
         timeField.setAttribute('title', date.toLocaleString())
         if (settings.bootstrapVersion === 4) {
           timeField.setAttribute('data-toggle', 'tooltip')

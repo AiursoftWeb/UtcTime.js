@@ -16,7 +16,7 @@ npm install @aiursoft/utctime.js
 
 ## Reference JavaScript
 
-You also need to reference bootstrap's JavaScript file:
+You can import the library using the following code:
 
 ```html
 <script type="module">
@@ -80,7 +80,7 @@ new UtcTime({
   disableAgo: false,
 
   // After the content is replaced.
-  onSet: function (element) {},
+  onSet: function (element, date) {},
 
   // Disable auto update the value by seconds.
   disableAutoUpdate: false,
@@ -91,7 +91,10 @@ For example, to init bootstrap v4 tooltip:
 
 ```javascript
 new UtcTime({
-  onSet: function (element) {
+  onSet: function (element, date) {
+    element.setAttribute('data-toggle', 'tooltip')
+    element.setAttribute('data-trigger', 'hover')
+    element.setAttribute('data-title', date.toLocaleString())
     $(element).tooltip()
   },
 })
@@ -101,7 +104,10 @@ To init bootstrap v5 tooltip:
 
 ```javascript
 new UtcTime({
-  onSet: function (element) {
+  onSet: function (element, date) {
+    element.setAttribute('data-bs-toggle', 'tooltip')
+    element.setAttribute('data-bs-trigger', 'hover')
+    element.setAttribute('data-bs-title', date.toLocaleString())
     var tooltip = new bootstrap.Tooltip(element)
   },
 })

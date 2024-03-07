@@ -1,6 +1,6 @@
 {
   "name": "@aiursoft/utctime.js",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Auto utc time",
   "main": "dist/cjs/utctime.js",
   "module": "dist/esm/utctime.js",

@@ -33,11 +33,11 @@ class UtcTime {
     loop()
 
     document
-      .querySelectorAll('*[' + settings.attr + ']')
+      .querySelectorAll('*[' + this.defaultSettings.attr + ']')
       .forEach((timeField) => {
-        const sourceValue = timeField.getAttribute(settings.attr)
+        const sourceValue = timeField.getAttribute(this.defaultSettings.attr)
         const date = this.getDate(sourceValue!)
-        settings.onSet(timeField, date)
+        this.defaultSettings.onSet(timeField, date)
       })
   }
 

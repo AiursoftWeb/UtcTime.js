@@ -31,6 +31,14 @@ class UtcTime {
       }
     }
     loop()
+
+    document
+      .querySelectorAll('*[' + settings.attr + ']')
+      .forEach((timeField) => {
+        const sourceValue = timeField.getAttribute(settings.attr)
+        const date = this.getDate(sourceValue!)
+        settings.onSet(timeField, date)
+      })
   }
 
   timeSince(date: Date, settings: typeof this.defaultSettings): string {
@@ -93,7 +101,6 @@ class UtcTime {
           text = date.toLocaleDateString()
         }
         timeField.innerHTML = text
-        settings.onSet(timeField, date)
       })
   }
 }

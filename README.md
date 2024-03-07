@@ -87,12 +87,22 @@ new UtcTime({
 })
 ```
 
-For example, to init bootstrap tooltip:
+For example, to init bootstrap v4 tooltip:
 
 ```javascript
 new UtcTime({
   onSet: function (element) {
     $(element).tooltip()
+  },
+})
+```
+
+To init bootstrap v5 tooltip:
+
+```javascript
+new UtcTime({
+  onSet: function (element) {
+    var tooltip = new bootstrap.Tooltip(element)
   },
 })
 ```

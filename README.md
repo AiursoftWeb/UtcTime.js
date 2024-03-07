@@ -105,11 +105,12 @@ To init bootstrap v5 tooltip:
 ```javascript
 new UtcTime({
   onSet: function (element, date) {
-    element.setAttribute('data-bs-toggle', 'tooltip')
-    element.setAttribute('data-bs-trigger', 'hover')
-    element.setAttribute('data-bs-title', date.toLocaleString())
-    var tooltip = new bootstrap.Tooltip(element)
-  },
+    new bootstrap.Tooltip(element, {
+        trigger: 'hover',
+        placement: 'top',
+        title: date.toLocaleString()
+    });
+  }
 })
 ```
 

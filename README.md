@@ -46,7 +46,7 @@ And change it like this.
 <p data-utc-time="9/12/2018 10:12:24 AM"><!-- In your tag the time shall be an UTC time --></p>
 ```
 
-Add init jquery-utc-time
+Add init the library.
 
 ```html
 <script>

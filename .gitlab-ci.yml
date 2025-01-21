@@ -30,7 +30,7 @@ deploy_to_npm:
     - npm run clean
     - npm run format
     - npm run build
-    - echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> .npmrc
+    - echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
     - npm publish --access public || true
   only:
     - master

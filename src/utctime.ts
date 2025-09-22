@@ -56,7 +56,10 @@ class UtcTime {
       ss: pad(date.getUTCSeconds()),
     }
 
-    return format.replace(/YYYY|MM|DD|HH|mm|ss/g, (match) => replacements[match])
+    return format.replace(
+      /YYYY|MM|DD|HH|mm|ss/g,
+      (match) => replacements[match],
+    )
   }
 
   timeSince(date: Date, settings: UtcTimeSettings): string {

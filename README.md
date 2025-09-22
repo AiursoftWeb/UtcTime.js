@@ -76,8 +76,13 @@ new UtcTime({
   // Localization options. Default is ' seconds ago'
   secondsAgo: '秒前',
 
-  // Always display time and date not `some time` ago.
+  // Always display full local time and date (using toLocaleString()), not `some time` ago.
   disableAgo: false,
+
+  // Provide a custom format string to display the date and time.
+  // This takes the highest priority over `disableAgo` and the relative time logic.
+  // Example: 'YYYY-MM-DD HH:mm:ss'.
+  format: undefined,
 
   // After the content is replaced.
   onSet: function (element, date) {},

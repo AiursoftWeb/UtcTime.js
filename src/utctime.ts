@@ -8,6 +8,7 @@ interface UtcTimeSettings {
   disableAgo: boolean
   onSet: (obj: Element, date: Date) => void
   disableAutoUpdate: boolean
+  format?: string
 }
 
 class UtcTime {
@@ -20,9 +21,10 @@ class UtcTime {
     disableAgo: false,
     onSet: function (obj: Element) {},
     disableAutoUpdate: false,
+    format: undefined,
   }
 
-  constructor(settings: UtcTimeSettings) {
+  constructor(settings: Partial<UtcTimeSettings>) {
     Object.assign(this.defaultSettings, settings)
     const loop = () => {
       this.initTime(this.defaultSettings)
@@ -36,16 +38,34 @@ class UtcTime {
       .querySelectorAll('*[' + this.defaultSettings.attr + ']')
       .forEach((timeField) => {
         const sourceValue = timeField.getAttribute(this.defaultSettings.attr)
-        const date = this.getDate(sourceValue!)
-        this.defaultSettings.onSet(timeField, date)
+        if (sourceValue) {
+          const date = this.getDate(sourceValue)
+          this.defaultSettings.onSet(timeField, date)
+        }
       })
   }
 
-  timeSince(date: Date, settings: typeof this.defaultSettings): string {
+  formatDate(date: Date, format: string): string {
+    const pad = (n: number) => (n < 10 ? '0' + n : n.toString())
+    const replacements: { [key: string]: string } = {
+      YYYY: date.getUTCFullYear().toString(),
+      MM: pad(date.getUTCMonth() + 1),
+      DD: pad(date.getUTCDate()),
+      HH: pad(date.getUTCHours()),
+      mm: pad(date.getUTCMinutes()),
+      ss: pad(date.getUTCSeconds()),
+    }
+
+    return format.replace(/YYYY|MM|DD|HH|mm|ss/g, (match) => replacements[match])
+  }
+
+  timeSince(date: Date, settings: UtcTimeSettings): string {
     const seconds = Math.floor((new Date().getTime() - date.getTime()) / 1000)
-    let interval = Math.floor(seconds / 2592000)
+    let interval = Math.floor(seconds / 2592000) // 30 days
     if (interval >= 1) {
-      return date.toLocaleDateString()
+      return settings.format
+        ? this.formatDate(date, settings.format)
+        : date.toLocaleString()
     }
     interval = Math.floor(seconds / 86400)
     if (interval >= 1) {
@@ -59,10 +79,12 @@ class UtcTime {
     if (interval >= 1) {
       return interval + settings.minutesAgo
     }
-    if (interval >= 0) {
+    if (seconds >= 0) {
       return Math.floor(seconds) + settings.secondsAgo
     } else {
-      return date.toLocaleDateString()
+      return settings.format
+        ? this.formatDate(date, settings.format)
+        : date.toLocaleString()
     }
   }
 
@@ -90,16 +112,28 @@ class UtcTime {
     return new Date(inputString)
   }
 
-  initTime(settings: typeof this.defaultSettings): void {
+  initTime(settings: UtcTimeSettings): void {
     document
       .querySelectorAll('*[' + settings.attr + ']')
       .forEach((timeField) => {
         const sourceValue = timeField.getAttribute(settings.attr)
-        const date = this.getDate(sourceValue!)
-        let text = this.timeSince(date, settings)
-        if (settings.disableAgo) {
-          text = date.toLocaleDateString()
+        if (!sourceValue) return
+
+        const date = this.getDate(sourceValue)
+        let text: string
+
+        // 修改：核心逻辑更新
+        if (settings.format) {
+          // 1. 如果提供了 format，则拥有最高优先级
+          text = this.formatDate(date, settings.format)
+        } else if (settings.disableAgo) {
+          // 2. 如果禁用了相对时间，则使用本地化日期
+          text = date.toLocaleString()
+        } else {
+          // 3. 否则，计算相对时间
+          text = this.timeSince(date, settings)
         }
+
         timeField.innerHTML = text
       })
   }

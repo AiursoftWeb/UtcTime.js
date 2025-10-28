@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://gitlab.aiursoft.cn/aiursoft/utctime.js"
+    "url": "https://gitlab.aiursoft.com/aiursoft/utctime.js"
   },
   "devDependencies": {
     "esbuild": "^0.19.11",

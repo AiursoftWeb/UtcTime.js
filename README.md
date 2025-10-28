@@ -1,6 +1,6 @@
 # UtcTime.js
 
-[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://gitlab.aiursoft.com/aiursoft/utctime.js/-/blob/master/LICENSE) [![Pipeline stat](https://gitlab.aiursoft.com/aiursoft/utctime.js/badges/master/pipeline.svg)](https://gitlab.aiursoft.com/aiursoft/utctime.js/-/pipelines) [![ManHours](https://manhours.aiursoft.cn/r/gitlab.aiursoft.com/aiursoft/utctime.js.svg)](https://gitlab.aiursoft.com/aiursoft/utctime.js/-/commits/master?ref_type=heads) [![npm](https://img.shields.io/npm/v/@aiursoft/utctime.js?color=blue)](https://www.npmjs.com/package/@aiursoft/utctime.js) [![npm](https://img.shields.io/npm/dm/@aiursoft/utctime.js)](https://www.npmjs.com/package/@aiursoft/utctime.js)
+[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://gitlab.aiursoft.com/aiursoft/utctime.js/-/blob/master/LICENSE) [![Pipeline stat](https://gitlab.aiursoft.com/aiursoft/utctime.js/badges/master/pipeline.svg)](https://gitlab.aiursoft.com/aiursoft/utctime.js/-/pipelines) [![ManHours](https://manhours.aiursoft.com/r/gitlab.aiursoft.com/aiursoft/utctime.js.svg)](https://gitlab.aiursoft.com/aiursoft/utctime.js/-/commits/master?ref_type=heads) [![npm](https://img.shields.io/npm/v/@aiursoft/utctime.js?color=blue)](https://www.npmjs.com/package/@aiursoft/utctime.js) [![npm](https://img.shields.io/npm/dm/@aiursoft/utctime.js)](https://www.npmjs.com/package/@aiursoft/utctime.js)
 
 `@aiursoft/utctime.js` is a JavaScript library which converts UTC time to local time easily.
 

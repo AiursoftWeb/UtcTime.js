@@ -1,6 +1,6 @@
 {
   "name": "@aiursoft/utctime.js",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Auto utc time",
   "main": "dist/cjs/utctime.js",
   "module": "dist/esm/utctime.js",
@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://gitlab.aiursoft.com/aiursoft/utctime.js"
+    "url": "https://github.com/AiursoftWeb/utctime.js"
   },
   "devDependencies": {
     "esbuild": "^0.19.11",

@@ -1,6 +1,5 @@
 stages:
   - check
-  - publish
 
 before_script:
   - 'cat /etc/lsb-release && uname -a && pwd && ls -ashl'
@@ -19,26 +18,3 @@ build_locally:
     - npm clean-install
     - npm run lint
     - npm run build
-
-deploy_to_npm:
-  needs:
-    - build_locally
-  stage: publish
-  environment: production
-  script:
-    - npm clean-install
-    - npm run clean
-    - npm run format
-    - npm run build
-    - echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
-    - PACKAGE=$(node -p "require('./package.json').name")
-    - VERSION=$(node -p "require('./package.json').version")
-    - |
-      if [ "$(npm view "$PACKAGE@$VERSION" version 2>/dev/null)" = "$VERSION" ]; then
-        echo "$PACKAGE@$VERSION is already published."
-      else
-        npm whoami
-        npm publish --access public
-      fi
-  only:
-    - master

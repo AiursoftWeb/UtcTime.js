@@ -1,6 +1,6 @@
 {
   "name": "@aiursoft/utctime.js",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Auto utc time",
   "main": "dist/cjs/utctime.js",
   "module": "dist/esm/utctime.js",
@@ -19,12 +19,12 @@
     "url": "https://github.com/AiursoftWeb/utctime.js"
   },
   "devDependencies": {
-    "esbuild": "^0.19.11",
-    "@typescript-eslint/eslint-plugin": "^6.16.0",
-    "@typescript-eslint/parser": "^6.16.0",
-    "eslint": "^8.56.0",
-    "prettier": "^3.1.1",
-    "typescript": "^5.3.3"
+    "esbuild": "^0.19.12",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0",
+    "eslint": "^8.57.1",
+    "prettier": "^3.9.10",
+    "typescript": "^5.9.3"
   },
   "author": "Anduin Xue <anduin@aiursoft.com>",
   "license": "MIT"

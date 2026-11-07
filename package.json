@@ -7,7 +7,7 @@
   "types": "dist/types/utctime.d.ts",
   "scripts": {
     "clean": "rm -rf ./dist",
-    "build-js": "tsc -b ./tsconfig.json ./tsconfig.types.json",
+    "build-js": "tsc -b ./tsconfig.json ./tsconfig.types.json && tsc -p ./tsconfig.json --module commonjs --outDir ./dist/cjs",
     "build": "npm run build-js",
     "format": "prettier --write .",
     "lint": "eslint src/ --ext .ts && prettier --check .",

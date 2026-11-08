@@ -21,6 +21,8 @@ See [usage and options](docs/usage.md) for timestamp attributes and formatting.
 
 ## Development
 
+Use Node.js 20 or a newer supported LTS release.
+
 ```bash
 npm ci
 npm run check

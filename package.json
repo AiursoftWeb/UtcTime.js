@@ -1,6 +1,6 @@
 {
   "name": "@aiursoft/utctime.js",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "description": "Auto utc time",
   "main": "dist/cjs/utctime.js",
   "module": "dist/esm/utctime.js",
@@ -22,7 +22,7 @@
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
     "eslint": "^8.57.1",
-    "prettier": "^3.10.0",
+    "prettier": "^3.10.1",
     "typescript": "^5.9.3"
   },
   "author": "Anduin Xue <anduin@aiursoft.com>",

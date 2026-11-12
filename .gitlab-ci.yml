@@ -17,12 +17,18 @@ workflow:
 variables:
   S360_PURPOSE: review
   S360_CHECK_KEY: ''
+  npm_config_registry: 'https://nopkg.aiursoft.com/npm/'
 
 s360:
   stage: s360
   script:
     - export PATH="$PATH:$HOME/.dotnet/tools"
-    - dotnet tool update Aiursoft.S360.Client --global --add-source https://nuget.aiursoft.com/v3/index.json
+    - |
+      cat > .ci-nuget.config << 'NUGETEOF'
+      <?xml version="1.0" encoding="utf-8"?>
+      <configuration><packageSources><clear /><add key="nupkg" value="https://nupkg.aiursoft.com/v3/index.json" /></packageSources></configuration>
+      NUGETEOF
+    - dotnet tool update Aiursoft.S360.Client --global --configfile .ci-nuget.config
     - s360 check --path . --ecosystem npm --npm-lockfile-only --purpose "$S360_PURPOSE"
   retry:
     max: 2

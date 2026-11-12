@@ -19,19 +19,16 @@ variables:
   S360_CHECK_KEY: ''
   npm_config_registry: 'https://nopkg.aiursoft.com/npm/'
 
+before_script:
+  - export PATH="$HOME/.dotnet/tools:$PATH"
+  - command -v dotnet || { echo "Runner is missing dotnet." >&2; exit 1; }
+  - dotnet tool update --global Aiursoft.S360.Client --source https://nupkg.aiursoft.com/v3/index.json
+  - s360 --version
+
 s360:
   stage: s360
   script:
-    - export PATH="$CI_BUILDS_DIR/.ci-tools/$CI_JOB_ID:$PATH"
-    - |
-      cat > .ci-nuget.config << 'NUGETEOF'
-      <?xml version="1.0" encoding="utf-8"?>
-      <configuration><packageSources><clear /><add key="nupkg" value="https://nupkg.aiursoft.com/v3/index.json" /></packageSources></configuration>
-      NUGETEOF
-    - dotnet tool update Aiursoft.S360.Client --tool-path "$CI_BUILDS_DIR/.ci-tools/$CI_JOB_ID" --configfile .ci-nuget.config
     - s360 check --path . --ecosystem npm --npm-lockfile-only --purpose "$S360_PURPOSE"
-  after_script:
-    - rm -rf "$CI_BUILDS_DIR/.ci-tools/$CI_JOB_ID"
   retry:
     max: 2
     when: runner_system_failure

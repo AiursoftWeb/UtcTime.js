@@ -44,7 +44,7 @@ check:
     paths:
       - '*.tgz'
 
-publish:
+.publish_npm:
   stage: publish
   needs:
     - job: check
@@ -55,11 +55,34 @@ publish:
       set -- *.tgz
       test "$#" -eq 1
       test -f "$1"
-      node scripts/publish-package.mjs "$1" --report publish-results.json
+      package_name=$(node -p 'encodeURIComponent(require("./package.json").name)')
+      package_version=$(node -p 'require("./package.json").version')
+      status=$(curl --silent --show-error --location --output /dev/null --write-out '%{http_code}' \
+        "$PUBLISH_REGISTRY/$package_name/$package_version")
+      case "$status" in
+        200) echo "Version $package_version is already published; keeping the existing release."; exit 0 ;;
+        404) ;;
+        *) echo "Cannot check published versions (HTTP $status)." >&2; exit 1 ;;
+      esac
+      node publish-package.mjs "$1" --target "$PUBLISH_TARGET" --report "publish-results-$PUBLISH_TARGET.json"
   artifacts:
     when: always
     expire_in: 1 week
     paths:
-      - publish-results.json
+      - publish-results-*.json
+
+publish_internal:
+  extends: .publish_npm
+  variables:
+    PUBLISH_TARGET: internal
+    PUBLISH_REGISTRY: https://nopkg.aiursoft.com/npm
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master" && $NOPKG_TOKEN'
+
+publish_public:
+  extends: .publish_npm
+  variables:
+    PUBLISH_TARGET: public
+    PUBLISH_REGISTRY: https://registry.npmjs.org
   rules:
     - if: '$CI_COMMIT_BRANCH == "master"'

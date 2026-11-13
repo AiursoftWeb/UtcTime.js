@@ -1,1 +1,4 @@
 package-lock.json
+
+# Kept byte-for-byte in sync with the Nopkg publisher.
+publish-package.mjs

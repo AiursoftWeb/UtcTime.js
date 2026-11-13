@@ -32,3 +32,5 @@ npm pack
 ## Build package sources
 
 Local contributor builds use public NuGet/npm sources by default. GitLab compilation uses Nupkg/Nopkg; dependency versions and integrity values remain locked. S360 independently checks the original sources before the build.
+
+Release CI publishes one packed artifact to Nopkg and public npm. Each target has its own credential and result; retries verify the existing archive before accepting a duplicate.

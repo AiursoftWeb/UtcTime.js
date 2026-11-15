@@ -19,15 +19,11 @@ variables:
   S360_CHECK_KEY: ''
   npm_config_registry: 'https://nopkg.aiursoft.com/npm/'
 
-before_script:
-  - export PATH="$HOME/.dotnet/tools:$PATH"
-  - command -v dotnet || { echo "Runner is missing dotnet." >&2; exit 1; }
-  - dotnet tool update --global Aiursoft.S360.Client --source https://nupkg.aiursoft.com/v3/index.json
-  - s360 --version
-
 s360:
   stage: s360
   script:
+    - export PATH="$PATH:$HOME/.dotnet/tools"
+    - dotnet tool update --global Aiursoft.S360.Client --source https://nupkg.aiursoft.com/v3/index.json
     - s360 check --path . --ecosystem npm --npm-lockfile-only --npm-registry "$npm_config_registry" --purpose "$S360_PURPOSE"
   retry:
     max: 2
@@ -44,7 +40,7 @@ check:
     paths:
       - '*.tgz'
 
-.publish_npm:
+publish:
   stage: publish
   needs:
     - job: check
@@ -58,31 +54,17 @@ check:
       package_name=$(node -p 'encodeURIComponent(require("./package.json").name)')
       package_version=$(node -p 'require("./package.json").version')
       status=$(curl --silent --show-error --location --output /dev/null --write-out '%{http_code}' \
-        "$PUBLISH_REGISTRY/$package_name/$package_version")
+        "https://registry.npmjs.org/$package_name/$package_version")
       case "$status" in
-        200) echo "Version $package_version is already published; keeping the existing release."; exit 0 ;;
+        200) echo "Version $package_version is already published; skipping."; exit 0 ;;
         404) ;;
         *) echo "Cannot check published versions (HTTP $status)." >&2; exit 1 ;;
       esac
-      node publish-package.mjs "$1" --target "$PUBLISH_TARGET" --report "publish-results-$PUBLISH_TARGET.json"
-  artifacts:
-    when: always
-    expire_in: 1 week
-    paths:
-      - publish-results-*.json
-
-publish_internal:
-  extends: .publish_npm
-  variables:
-    PUBLISH_TARGET: internal
-    PUBLISH_REGISTRY: https://nopkg.aiursoft.com/npm
-  rules:
-    - if: '$CI_COMMIT_BRANCH == "master" && $NOPKG_TOKEN'
-
-publish_public:
-  extends: .publish_npm
-  variables:
-    PUBLISH_TARGET: public
-    PUBLISH_REGISTRY: https://registry.npmjs.org
+      : "${NPM_TOKEN:?npm publishing credential is required}"
+      npm_config_userconfig=$(mktemp)
+      export npm_config_userconfig
+      trap 'rm -f "$npm_config_userconfig"' EXIT
+      printf '%s\n' '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' > "$npm_config_userconfig"
+      npm publish "$1" --registry=https://registry.npmjs.org --access public --ignore-scripts
   rules:
     - if: '$CI_COMMIT_BRANCH == "master"'

@@ -20,5 +20,3 @@ files:
     contentUri: https://gitlab.aiursoft.com/api/v4/projects/aiursoft%2FUIStack.js/repository/files/ninja.yaml/raw?ref=master
   - name: .prettierignore
     contentUri: https://gitlab.aiursoft.com/api/v4/projects/aiursoft%2FUIStack.js/repository/files/.prettierignore/raw?ref=master
-  - name: publish-package.mjs
-    contentUri: https://gitlab.aiursoft.com/api/v4/projects/aiursoft%2Fnopkg/repository/files/scripts%2Fpublish-package.mjs/raw?ref=master

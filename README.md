@@ -1,16 +1,18 @@
+<a name="utctimejs"></a>
+
 # Aiursoft UtcTime.js
 
 [![Pipeline](https://badge-proxy.aiursoft.com/aiursoft/utctime.js/badges/master/pipeline.svg)](https://gitlab.aiursoft.com/aiursoft/utctime.js/-/pipelines) [![npm](https://img.shields.io/npm/v/@aiursoft/utctime.js)](https://www.npmjs.com/package/@aiursoft/utctime.js)
 
 Convert UTC timestamps to local time in browser pages.
 
-<a name="utctimejs"></a> <a name="install"></a>
-
 ## Overview
 
 ### What is UtcTime.js?
 
 Convert UTC timestamps to local time in browser pages.
+
+<a name="install"></a>
 
 ## Installation
 
